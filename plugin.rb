@@ -33,7 +33,7 @@ after_initialize do
       @add_to_data = {}
       base = Discourse.base_url
       base.gsub!(/localhost/,"localhost:3000") # make this work for development
-      before_id=SiteSetting.add_to_before_header_topic_id
+      before_id=SiteSetting.discourse_add_to_summary_before_header_topic_id
       before_post_list = Post.where(topic_id: before_id, post_number: 1)
       before_text = ""
       if before_post_list.length > 0
@@ -41,10 +41,10 @@ after_initialize do
       end
       before_text.gsub!(/\/\/localhost/,base)
       @add_to_data[:before_text] = before_text
-      @add_to_data[:before_css] = SiteSetting.add_to_before_header_css
+      @add_to_data[:before_css] = SiteSetting.discourse_add_to_summary_before_header_css
       @add_to_data[:before] = before_text.length>0
 
-      after_id=SiteSetting.add_to_after_header_topic_id
+      after_id=SiteSetting.discourse_add_to_summary_after_header_topic_id
       after_post_list = Post.where(topic_id: after_id, post_number: 1)
       after_text = ""
       if after_post_list.length > 0
@@ -52,7 +52,7 @@ after_initialize do
       end
       after_text.gsub!(/\/\/localhost/,base)
       @add_to_data[:after_text] = after_text
-      @add_to_data[:after_css] = SiteSetting.add_to_after_header_css
+      @add_to_data[:after_css] = SiteSetting.discourse_add_to_summary_after_header_css
       @add_to_data[:after] = after_text.length>0
 
       super(user, opts)
