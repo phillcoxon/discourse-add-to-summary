@@ -6,11 +6,11 @@ plugins:
     default: ""
     client: true
   discourse_add_to_summary_before_header_css:
-    default: ""
+    default: "style=\"color:red;background:green\""
     client: true
   discourse_add_to_summary_after_header_topic_id:
     default: ""
     client: true
   discourse_add_to_summary_after_header_css:
-    default: ""
+    default: "style=\"color:green;background:red\""
     client: true
