@@ -1,0 +1,66 @@
+# name: DiscourseAddToSummary
+# about:
+# version: 0.1
+# authors: pfaffman
+# url: https://github.com/pfaffman
+
+
+register_asset "stylesheets/common/discourse-add-to-summary.scss"
+
+enabled_site_setting :discourse_add_to_summary_enabled
+
+PLUGIN_NAME ||= "DiscourseAddToSummary".freeze
+
+Rails.configuration.paths['app/views'].unshift(Rails.root.join('plugins', 'discourse-add-to-summary', 'app/views'))
+
+after_initialize do
+
+  # see lib/plugin/instance.rb for the methods available in this context
+
+  module ::DiscourseAddToSummary
+    class Engine < ::Rails::Engine
+      engine_name PLUGIN_NAME
+      isolate_namespace DiscourseAddToSummary
+    end
+
+    def digest(user, opts = {})
+      @my_data = {}
+      puts "{'-'*30}> I'm a digesting"
+      @my_data[:test] = "this is my text which I have given unto you."
+      super(user, opts)
+    end
+
+  end
+
+  module AddToMailerExtension
+    def digest(user, opts = {})
+      @add_to_data = {}
+      super(user, opts)
+    end
+  end
+
+  require_dependency 'user_notifications'
+  class ::UserNotifications
+    prepend AddToMailerExtension
+  end
+
+  require_dependency "application_controller"
+  class DiscourseAddToSummary::ActionsController < ::ApplicationController
+    requires_plugin PLUGIN_NAME
+
+    before_action :ensure_logged_in
+
+    def list
+      render json: success_json
+    end
+  end
+
+  DiscourseAddToSummary::Engine.routes.draw do
+    get "/list" => "actions#list"
+  end
+
+  Discourse::Application.routes.append do
+    mount ::DiscourseAddToSummary::Engine, at: "/discourse-add-to-summary"
+  end
+
+end
