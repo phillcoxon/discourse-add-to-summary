@@ -15,7 +15,7 @@ body, table, td, th, h1, h2, h3 {font-family: Helvetica, Arial, sans-serif !impo
 </style>
 <![endif]-->
 
-<% if @add_to_data[:before] %>
+<% if @add_to_data && @add_to_data[:before] %>
 <div style=";font-family:Helvetica,Arial,sans-serif;color:#0a0a0a;font-size:14px;padding:0 16px 0 16px;text-align:left;width:100%;font-weight:normal;">
 <div <%= raw @add_to_data[:before_css] %>>
 <%= raw @add_to_data[:before_text] %>
@@ -53,7 +53,7 @@ body, table, td, th, h1, h2, h3 {font-family: Helvetica, Arial, sans-serif !impo
 </table>
 <%- end %>
 
-<% if @add_to_data[:after] %>
+<% if @add_to_data && @add_to_data[:after] %>
 <div style=";font-family:Helvetica,Arial,sans-serif;color:#0a0a0a;font-size:14px;padding:0 16px 0 16px;text-align:left;width:100%;font-weight:normal;">
 
 <div <%= raw @add_to_data[:after_css] %>>
