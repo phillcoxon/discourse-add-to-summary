@@ -31,31 +31,33 @@ if enabled_site_setting
           base.gsub!(/localhost/,"localhost:3000") # make this work for development
           before_id=SiteSetting.discourse_add_to_summary_before_header_topic_id
           puts "LOOKING FOR BEFORE POST: #{before_id}"
-          btopic=Topic.find(before_id) if before_id.to_i > 0
-          before_post_list = Post.where(topic_id: before_id, post_number: btopic.highest_post_number) unless !btopic
-          before_text = ""
-          if before_post_list.length > 0
-            before_text = before_post_list.first.cooked
+          if before_id.to_i > 0
+            btopic=Topic.find(before_id)
+            before_post_list = Post.where(topic_id: before_id, post_number: btopic.highest_post_number)
+            before_text = ""
+            if before_post_list.length > 0
+              before_text = before_post_list.first.cooked
+            end
+            before_text.gsub!(/\/\/localhost/,base)
+            @add_to_data[:before_text] = before_text
+            @add_to_data[:before_css] = SiteSetting.discourse_add_to_summary_before_header_css
+            @add_to_data[:before] = before_text.length>0
           end
-          before_text.gsub!(/\/\/localhost/,base)
-          @add_to_data[:before_text] = before_text
-          @add_to_data[:before_css] = SiteSetting.discourse_add_to_summary_before_header_css
-          @add_to_data[:before] = before_text.length>0
-
-          puts "ADD! #{@add_to_data}\n#{'-'*50}"
 
           after_id=SiteSetting.discourse_add_to_summary_after_header_topic_id
-          atopic=Topic.find(after_id) if after_id.to_i > 0
-          after_post_list = Post.where(topic_id: after_id, post_number: atopic.highest_post_number) unless !atopic
-          after_text = ""
-          if after_post_list.length > 0
-            after_text = after_post_list.first.cooked
+          if before_id.to_i > 0
+            atopic=Topic.find(after_id)
+            after_post_list = Post.where(topic_id: after_id, post_number: atopic.highest_post_number) unless !atopic
+            after_text = ""
+            if after_post_list.length > 0
+              after_text = after_post_list.first.cooked
+            end
+            after_text.gsub!(/\/\/localhost/,base)
+            @add_to_data[:after_text] = after_text
+            @add_to_data[:after_css] = SiteSetting.discourse_add_to_summary_after_header_css
+            @add_to_data[:after] = after_text.length>0
+            puts "LOOKING FOR AFTER POST: #{@add_to_data}"
           end
-          after_text.gsub!(/\/\/localhost/,base)
-          @add_to_data[:after_text] = after_text
-          @add_to_data[:after_css] = SiteSetting.discourse_add_to_summary_after_header_css
-          @add_to_data[:after] = after_text.length>0
-          puts "LOOKING FOR AFTER POST: #{@add_to_data}"
         end
         super(user, opts)
       end
