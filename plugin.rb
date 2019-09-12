@@ -45,7 +45,7 @@ if enabled_site_setting
           end
 
           after_id=SiteSetting.discourse_add_to_summary_after_header_topic_id
-          if before_id.to_i > 0
+          if after_id.to_i > 0
             atopic=Topic.find(after_id)
             after_post_list = Post.where(topic_id: after_id, post_number: atopic.highest_post_number) unless !atopic
             after_text = ""
