@@ -31,7 +31,7 @@ if enabled_site_setting
           base.gsub!(/localhost/,"localhost:3000") # make this work for development
           before_id=SiteSetting.discourse_add_to_summary_before_header_topic_id
           puts "LOOKING FOR BEFORE POST: #{before_id}"
-          btopic=Topic.find(before_id)
+          btopic=Topic.find(before_id) if before_id.to_i > 0
           before_post_list = Post.where(topic_id: before_id, post_number: btopic.highest_post_number) unless !btopic
           before_text = ""
           if before_post_list.length > 0
@@ -45,7 +45,7 @@ if enabled_site_setting
           puts "ADD! #{@add_to_data}\n#{'-'*50}"
 
           after_id=SiteSetting.discourse_add_to_summary_after_header_topic_id
-          atopic=Topic.find(after_id)
+          atopic=Topic.find(after_id) if after_id.to_i > 0
           after_post_list = Post.where(topic_id: after_id, post_number: atopic.highest_post_number) unless !atopic
           after_text = ""
           if after_post_list.length > 0
