@@ -4,7 +4,6 @@
 # authors: pfaffman
 # url: https://github.com/pfaffman
 
-
 register_asset "stylesheets/common/discourse-add-to-summary.scss"
 
 enabled_site_setting :discourse_add_to_summary_enabled
@@ -14,7 +13,6 @@ PLUGIN_NAME ||= "DiscourseAddToSummary".freeze
 Rails.configuration.paths['app/views'].unshift(Rails.root.join('plugins', 'discourse-add-to-summary', 'app/views'))
 
 if enabled_site_setting
-  puts "WE ARE ENABLED!!!!!!#{'-'*50}"
   after_initialize do
 
     # see lib/plugin/instance.rb for the methods available in this context
@@ -22,15 +20,12 @@ if enabled_site_setting
     require_dependency 'user_notifications'
     module ::UserNotificationsOverride
       def digest(user, opts = {})
-        puts "LOOKING TO MAILER!!!!!!#{'-'*50}"
         @add_to_data = {}
         if SiteSetting.discourse_add_to_summary_enabled
-          puts "ADDING TO MAILER!!!!!!#{'-'*50}"
           @add_to_data = {}
           base = Discourse.base_url
           base.gsub!(/localhost/,"localhost:3000") # make this work for development
           before_id=SiteSetting.discourse_add_to_summary_before_header_topic_id
-          puts "LOOKING FOR BEFORE POST: #{before_id}"
           if before_id.to_i > 0
             btopic=Topic.find(before_id)
             before_post_list = Post.where(topic_id: before_id, post_number: btopic.highest_post_number)
@@ -56,7 +51,6 @@ if enabled_site_setting
             @add_to_data[:after_text] = after_text
             @add_to_data[:after_css] = SiteSetting.discourse_add_to_summary_after_header_css
             @add_to_data[:after] = after_text.length>0
-            puts "LOOKING FOR AFTER POST: #{@add_to_data}"
           end
         end
         super(user, opts)
