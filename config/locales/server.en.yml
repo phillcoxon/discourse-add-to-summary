@@ -4,4 +4,4 @@ en:
     discourse_add_to_summary_before_header_topic_id: "Topic ID for post to insert before Summary"
     discourse_add_to_summary_before_header_css: "CSS for before-header <span>"
     discourse_add_to_summary_after_header_topic_id: "Topic ID for post to insert after Summary"
-    discourse_add_to_summary_after_header_css: "CSS for before-header <span>"
+    discourse_add_to_summary_after_header_css: "CSS for after-header <span>"
