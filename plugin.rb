@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # name: DiscourseAddToSummary
 # about:
 # version: 0.1
