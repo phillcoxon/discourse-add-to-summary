@@ -1,0 +1,6 @@
+{
+  "extends": "eslint-config-discourse",
+  "rules": {
+    "discourse-ember/global-ember": 2
+  }
+}
