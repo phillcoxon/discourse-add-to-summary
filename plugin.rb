@@ -31,7 +31,7 @@ if enabled_site_setting
           if before_id.to_i > 0
             btopic = Topic.find(before_id)
             before_post_list = Post.where(topic_id: before_id, post_number: btopic.highest_post_number)
-            before_text = ""
+            before_text = "".dup
             if before_post_list.length > 0
               before_text = before_post_list.first.cooked
             end
