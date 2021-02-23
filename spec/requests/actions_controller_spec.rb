@@ -82,8 +82,8 @@ describe DiscourseAddToSummary::ActionsController do
     it "is up to date with current discourse html template" do
       discourse_digest = File.read('./app/views/user_notifications/digest.html.erb')
       discourse_md5 = Digest::MD5.hexdigest(discourse_digest)
-      reference_md5 = "5a04dfe549cd76fb05b430256b649872"
-      expect((discourse_md5 == reference_md5)).to be true
+      reference_md5 = "f955a3fb6967873f1d563fa5ba59b7ff"
+      expect(discourse_md5).to eq(reference_md5)
     end
   end
 
