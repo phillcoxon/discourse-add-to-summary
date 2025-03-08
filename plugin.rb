@@ -6,6 +6,10 @@
 # authors: pfaffman
 # url: https://github.com/pfaffman
 
+# register the locales
+register_locale("en", name: "English", fallbackLocale: "en")
+register_locale("es", name: "Spanish", nativeName: "Español", fallbackLocale: "en")
+
 register_asset "stylesheets/common/discourse-add-to-summary.scss"
 
 enabled_site_setting :discourse_add_to_summary_enabled
@@ -16,6 +20,12 @@ Rails.configuration.paths['app/views'].unshift(Rails.root.join('plugins', 'disco
 
 if enabled_site_setting
   after_initialize do
+
+    # Register the translation as site custom text
+    register_editable_site_customization(
+      "plugin_name.hello_world",
+      default: "Hello World"
+    )
 
     # see lib/plugin/instance.rb for the methods available in this context
 
