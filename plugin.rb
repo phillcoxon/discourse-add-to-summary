@@ -22,10 +22,10 @@ if enabled_site_setting
   after_initialize do
 
     # Register the translation as site custom text
-    register_editable_site_customization(
-      "plugin_name.hello_world",
-      default: "Hello World"
-    )
+    #register_editable_site_customization(
+    #  "plugin_name.hello_world",
+    #  default: "Hello World"
+    #)
 
     # see lib/plugin/instance.rb for the methods available in this context
 
