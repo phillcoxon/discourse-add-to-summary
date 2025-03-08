@@ -1,6 +1,4 @@
 en:
-  js:
-    discourse_add_to_summary:
-  DiscourseAddToSummary:
-    hello_world: "Hello World"
+  discourse_add_to_summary:
+    hello_world: "Hello World!"
   

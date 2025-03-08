@@ -1,5 +1,3 @@
 en:
-  js:
-    discourse_add_to_summary:
-  DiscourseAddToSummary:
-    hello_world: "Hola Mundo"
+  discourse_add_to_summary:
+    hello_world: "Hola Mundo!"
